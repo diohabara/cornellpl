@@ -1,0 +1,4 @@
+(executable
+ (public_name cornellpl)
+ (name main)
+ (libraries cornellpl))
