@@ -12,17 +12,27 @@ let parse (s : string) : expr =
 let string_of_val (e : expr) : string =
   match e with
   | Int i -> string_of_int i
+  | Binop _ -> failwith "preconditioned violated"
 ;;
 
 (** [is_value e] is whether [e] is a value. *)
 let is_value : expr -> bool = function
   | Int _ -> true
+  | Binop _ -> false
 ;;
 
 (** [step e] takes a single step of evaluation of [e]. *)
-let step : expr -> expr = function
-  | Int i -> failwith (string_of_int i)
-;;
+let rec step : expr -> expr = function
+  | Int _ -> failwith "does not step"
+  | Binop (bop, e1, e2) when is_value e1 && is_value e2 -> step_bop bop e1 e2
+  | Binop (bop, e1, e2) when is_value e1 -> Binop(bop, e1, step e2)
+  | Binop (bop, e1, e2) -> Binop(bop, step e1, e2)
+
+(** [step_bop bop v1 v2] implementes the primitive operation [v1 bop v2].
+    Requires: [v1] and [v2] are both values. *)
+and step_bop bop v1 v2 = match bop, v1, v2 with
+  | Add, Int a, Int b -> Int (a + b)
+  | _ -> failwith "precondition violated"
 
 (** [eval e] fully evaluetes [e] to a value [v]. *)
 let rec eval (e : expr) : expr = if is_value e then e else e |> step |> eval
