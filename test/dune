@@ -1,2 +1,6 @@
-(test
- (name cornellpl))
+(library
+ (name cornellpl_test)
+ (libraries core cornellpl)
+ (preprocess
+  (pps ppx_jane))
+ (inline_tests))

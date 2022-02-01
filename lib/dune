@@ -1,2 +1,8 @@
+(ocamllex lexer)
+
+(menhir
+ (modules parser))
+
 (library
- (name cornellpl))
+ (public_name cornellpl)
+ (name lib))
