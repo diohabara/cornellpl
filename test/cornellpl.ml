@@ -13,13 +13,14 @@ let%expect_test "value" =
 
 let%expect_test "calculator" =
   interp "11+11" |> print_endline;
-  [%expect {| 22 |}]
+  [%expect {| 22 |}];
 
-  (* interp "2*2*10" |> print_endline;
+  interp "2*2*10" |> print_endline;
+  [%expect {| 40 |}]
 
-  interp "2+2*10" |> print_endline;
+  (* interp "2+2*10" |> print_endline; *)
 
-  interp "2*2+10" |> print_endline;
+  (* interp "2*2+10" |> print_endline; *)
 
-  interp "(10+1)+(5+6)" |> print_endline; *)
+  (* interp "(10+1)+(5+6)" |> print_endline; *)
 ;;

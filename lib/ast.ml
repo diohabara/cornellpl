@@ -1,6 +1,6 @@
 type bop =
   | Add
-  (* | Mult *)
+  | Mult
 
 type expr = Int of int
   | Binop of bop * expr * expr
